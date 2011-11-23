@@ -1,0 +1,142 @@
+# Generic files
+*~
+*.orig
+
+# Visual Studio intermediate files
+*.aps
+*.APS
+*.bak
+*.ncb
+*.sln.cache
+*.suo
+*.vcproj.*.user
+Sources/Application/BUSMASTER_Interface.c
+Sources/Application/BUSMASTER_Interface.h
+Sources/BusEmulation/BusEmulation.h
+Sources/BusEmulation/BusEmulation_i.c
+Sources/BusEmulation/BusEmulation_p.c
+Sources/TOOLS_EXTERNAL/CAPL_2_C/lexer.h
+
+# Release dirs (except BIN)
+Sources/Application/Release
+Sources/BusEmulation/Release
+Sources/CAN_ETAS_BOA/Release
+Sources/CAN_ICS_neoVI/Release
+Sources/CAN_Kvaser_CAN/Release
+Sources/CAN_STUB/Release
+Sources/CAN_Vector_XL/Release
+Sources/CommonClass/Release
+Sources/ConfigDialogsDIL/Release
+Sources/DataTypes/Release
+Sources/DIL_Interface/Release
+Sources/Filter/Release
+Sources/FrameProcessor/Release
+Sources/NodeSimEx/Release
+Sources/ProjectConfiguration/Release
+Sources/PSDI_CAN/Release
+Sources/Replay/Release
+Sources/SignalWatch/Release
+Sources/TestSetupEditorGUI/Release
+Sources/TestSetupEditorLib/Release
+Sources/TestSuiteExecutorGUI/Release
+Sources/TXWindow/Release
+Sources/Utility/Release
+Sources/TOOLS_EXTERNAL/*/Release
+
+# Debug dirs (except BIN)
+Sources/Application/Debug
+Sources/BusEmulation/Debug
+Sources/CAN_ETAS_BOA/Debug
+Sources/CAN_ICS_neoVI/Debug
+Sources/CAN_Kvaser_CAN/Debug
+Sources/CAN_STUB/Debug
+Sources/CAN_Vector_XL/Debug
+Sources/CommonClass/Debug
+Sources/ConfigDialogsDIL/Debug
+Sources/DataTypes/Debug
+Sources/DIL_Interface/Debug
+Sources/Filter/Debug
+Sources/FrameProcessor/Debug
+Sources/NodeSimEx/Debug
+Sources/ProjectConfiguration/Debug
+Sources/PSDI_CAN/Debug
+Sources/Replay/Debug
+Sources/SignalWatch/Debug
+Sources/TestSetupEditorGUI/Debug
+Sources/TestSetupEditorLib/Debug
+Sources/TestSuiteExecutorGUI/Debug
+Sources/TXWindow/Debug
+Sources/Utility/Debug
+Sources/TOOLS_EXTERNAL/*/Debug
+
+# Files in BIN (except hardware specific files)
+Sources/BIN/*/*.bmp
+Sources/BIN/*/*.c
+Sources/BIN/*/*.chm
+Sources/BIN/*/*.exe
+Sources/BIN/*/*.h
+Sources/BIN/*/*.ilk
+Sources/BIN/*/*.pdb
+Sources/BIN/*/*.tlb
+Sources/BIN/*/CAN_ETAS_BOA.dll
+Sources/BIN/*/CAN_ICS_neoVI.dll
+Sources/BIN/*/CAN_Kvaser_CAN.dll
+Sources/BIN/*/CAN_STUB.dll
+Sources/BIN/*/CAN_Vector_XL.dll
+Sources/BIN/*/Changelog.txt
+Sources/BIN/*/ConfigDialogsDIL.dll
+Sources/BIN/*/DIL_Interface.dll
+Sources/BIN/*/Filter.dll
+Sources/BIN/*/FrameProcessor.dll
+Sources/BIN/*/NodeSimEx.dll
+Sources/BIN/*/PSDI_CAN.dll
+Sources/BIN/*/ProjectConfiguration.dll
+Sources/BIN/*/Replay.dll
+Sources/BIN/*/SignalWatch.dll
+Sources/BIN/*/TXWindow.dll
+Sources/BIN/*/TestSetupEditorGUI.dll
+Sources/BIN/*/TestSuiteExecutorGUI.dll
+Sources/BIN/Libs/*/*.exp
+Sources/BIN/Libs/*/CAN_ETAS_BOA.lib
+Sources/BIN/Libs/*/CAN_ICS_neoVI.lib
+Sources/BIN/Libs/*/CAN_Kvaser_CAN.lib
+Sources/BIN/Libs/*/CAN_STUB.lib
+Sources/BIN/Libs/*/CAN_Vector_XL.lib
+Sources/BIN/Libs/*/CommonClass.lib
+Sources/BIN/Libs/*/ConfigDialogsDIL.lib
+Sources/BIN/Libs/*/DIL_Interface.lib
+Sources/BIN/Libs/*/DataTypes.lib
+Sources/BIN/Libs/*/Filter.lib
+Sources/BIN/Libs/*/FrameProcessor.lib
+Sources/BIN/Libs/*/NodeSimEx.lib
+Sources/BIN/Libs/*/PSDI_CAN.lib
+Sources/BIN/Libs/*/ProjectConfiguration.lib
+Sources/BIN/Libs/*/Replay.lib
+Sources/BIN/Libs/*/SignalWatch.lib
+Sources/BIN/Libs/*/TXWindow.lib
+Sources/BIN/Libs/*/TestSetupEditorGUI.lib
+Sources/BIN/Libs/*/TestSetupEditorLib.lib
+Sources/BIN/Libs/*/TestSuiteExecutorGUI.lib
+Sources/BIN/Libs/*/Utils.lib
+
+# Driver download artifacts
+Sources/CAN_ICS_neoVI/EXTERNAL_INCLUDE/VCneoVI.zip
+Sources/CAN_ICS_neoVI/EXTERNAL_INCLUDE/vspy3_Free.zip
+Sources/CAN_ICS_neoVI/EXTERNAL_INCLUDE/vspy3_Free.EXE
+Sources/CAN_Kvaser_CAN/EXTERNAL_INCLUDE/canlib.exe
+Sources/CAN_Vector_XL/EXTERNAL_INCLUDE/xl_lib75.zip
+Sources/CAN_Vector_XL/EXTERNAL_INCLUDE/Setup.exe
+
+# Installation Setup
+Installation Setup/BUSMASTER_Installer_Ver_*.exe
+
+# Documents
+Documents/1 Development Environment/out
+Documents/1 Development Environment/temp
+Documents/2 Requirement Specification/out
+Documents/2 Requirement Specification/temp
+Documents/3 Design Document/out
+Documents/3 Design Document/temp
+Documents/4 Help/out
+Documents/4 Help/temp
+Documents/5 Source Code Documentation/out
