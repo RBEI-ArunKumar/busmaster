@@ -10,3 +10,4 @@
 4. In order to build an installation application, please follow the instruction set in the developer's environment document. The install script and the related artifacts occur under 'Installation Setup' folder.
 
 5. Test documents and scripts may be found under 'Test Artifacts' folder.
+Hi
