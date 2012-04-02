@@ -26,15 +26,13 @@
 BGGradient 8080C0 0000FF FFFFFF
 
 ; Title of this installation
-Name "BUSMASTER Installer"
-
-BrandingText "RBEI BUSMASTER Installation"
+Name "BUSMASTER"
 
 ; Do a CRC check when initializing setup
 CRCCheck On
 
 ; Output filename
-Outfile "BUSMASTER_Installer_Ver_1.2.0.exe"
+Outfile "BUSMASTER_Installer_Ver_1.6.1.exe"
 
 Function .onInit
     # the plugins dir is automatically deleted when the installer exits
@@ -58,6 +56,22 @@ InstallDirRegKey HKLM "SOFTWARE\BUSMASTER" "Install_Dir"
 ; Folder selection prompt
 DirText "Please select an installation folder."
 
+; Pages
+Page license
+;Page components
+Page directory
+Page instfiles
+UninstPage uninstConfirm
+UninstPage instfiles
+
+; Installation Types
+;InstType "Typical"
+;InstType "Full"
+;InstType "Minimal"
+
+; License Text
+LicenseData ../COPYING.LESSER.txt
+
 ; Section Default: This emptily named section will always run
 Section ""
     SetOutPath $INSTDIR
@@ -71,18 +85,18 @@ Section ""
     File ..\Sources\BIN\Release\CAN_ETAS_BOA.dll
     File ..\Sources\BIN\Release\CAN_ICS_neoVI.dll
     File ..\Sources\BIN\Release\CAN_Kvaser_CAN.dll
+    File ..\Sources\BIN\Release\CAN_MHS.dll
     File ..\Sources\BIN\Release\CAN_PEAK_USB.dll
     File ..\Sources\BIN\Release\CAN_STUB.dll
     File ..\Sources\BIN\Release\CAN_Vector_XL.dll
-    File ..\Sources\BIN\Release\CAPL_2_C.exe
     File ..\Sources\BIN\Release\Changelog.txt
-    File ..\Sources\BIN\Release\ConfigDialogsDIL.dll
-    File ..\Sources\BIN\Release\DBC_2_DBF.exe
-    File ..\Sources\BIN\Release\DBF_2_DBC.exe
     File ..\Sources\BIN\Release\DIL_Interface.dll
+    File ..\Sources\BIN\Release\DIL_J1939.dll
     File ..\Sources\BIN\Release\Filter.dll
     File ..\Sources\BIN\Release\FrameProcessor.dll
     File ..\Sources\BIN\Release\GCCDLLMakeTemplate_CAN
+    File ..\Sources\BIN\Release\GCCDLLMakeTemplate_J1939
+    File ..\Sources\BIN\Release\mhsbmcfg.dll
     File ..\Sources\BIN\Release\NodeSimEx.dll
     File ..\Sources\BIN\Release\ProjectConfiguration.dll
     File ..\Sources\BIN\Release\PSDI_CAN.dll
@@ -91,7 +105,14 @@ Section ""
     File ..\Sources\BIN\Release\TestSetupEditorGUI.dll
     File ..\Sources\BIN\Release\TestSuiteExecutorGUI.dll
     File ..\Sources\BIN\Release\TXWindow.dll
+    File ..\Sources\BIN\Release\FormatConverter.exe
+    File ..\Sources\BIN\Release\SigGrphWnd.dll
+    File ..\Sources\BIN\Release\SignalDefiner.dll
+    File ..\Sources\BIN\ReleaseUMinSize\DMGraph.dll
 
+    ; Converters
+    File /r ..\Sources\BIN\Release\ConverterPlugins
+	
     ; Help
     File /oname=BUSMASTER.chm "..\Documents\4 Help\out\help.chm"
 
@@ -99,10 +120,12 @@ Section ""
     File /r ..\Sources\BIN\Release\MinGW
 
     ; Drivers
-    File ..\Sources\BIN\Release\CanApi2.dll	; PEAK USB
-    File ..\Sources\BIN\Release\canlib32.dll	; Kvaser CAN
-    File ..\Sources\BIN\Release\icsneo40.dll	; ICS neoVI
-    File ..\Sources\BIN\Release\vxlapi.dll	; Vector XL
+    File ..\Sources\BIN\Release\ETASneo40.dll ; ETAS ES581
+    File ..\Sources\BIN\Release\icsneo40.dll  ; Intrepid neoVI
+    File ..\Sources\BIN\Release\canlib32.dll  ; Kvaser CAN
+    File ..\Sources\BIN\Release\mhstcan.dll   ; MHS-Elektronik Tiny-CAN
+    File ..\Sources\BIN\Release\CanApi2.dll   ; PEAK USB
+    File ..\Sources\BIN\Release\vxlapi.dll    ; Vector XL
 
     ; License
     File ..\COPYING.LESSER.txt
@@ -118,26 +141,33 @@ Section ""
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\BUSMASTER" "DisplayName" "BUSMASTER (remove only)"
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\BUSMASTER" "UninstallString" '"$INSTDIR\uninst.exe"'
 
-    ; Compatibiliy settings
-    DeleteRegValue HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSMASTER.exe"
-    DeleteRegValue HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSEmulation.exe"
+    ; Compatibility settings
+    ;DeleteRegValue HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSMASTER.exe"
+    ;DeleteRegValue HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSEmulation.exe"
+
+    ; Compatibility settings for Windows 7
+    ReadRegStr $1 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
+    StrCmp $1 "6.1" 0 lbl ;StrCmp str1 str2 jump_if_equal [jump_if_not_equal]
+    WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSMASTER.exe" "WIN98"
+    WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\BUSEmulation.exe" "WIN98"
+    lbl:
 
     ; Server registration
-    SetOutPath $INSTDIR
     ExecWait 'BusEmulation.exe /regserver'
     ExecWait 'BUSMASTER.exe /regserver'
+    ExecWait 'regsvr32 DMGraph.dll /s'
 
     ; Uninstaller
     WriteUninstaller "uninst.exe"
 SectionEnd
 
 ; Uninstall section here...
-UninstallText "This will uninstall BUSMASTER Installer. Press NEXT to continue."
 Section "Uninstall"
     ; Unregister server
     SetOutPath $INSTDIR
     ExecWait 'BusEmulation.exe /unregserver'
     ExecWait 'BUSMASTER.exe /unregserver'
+    ExecWait 'regsvr32 /u DMGraph.dll /s'
 
     ; Delete registration entries
     DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\BUSMASTER"
@@ -149,4 +179,3 @@ Section "Uninstall"
     Delete "$SMPROGRAMS\BUSMASTER\Uninstall.lnk"
     Delete "$SMPROGRAMS\BUSMASTER\BUSMASTER.lnk"
 SectionEnd
-
